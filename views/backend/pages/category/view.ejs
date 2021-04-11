@@ -1,0 +1,38 @@
+<%- include('../../includes/header.ejs') %>
+
+<div class="container-fluid">
+
+    <h1 class="h3 mb-4 text-gray-800">Data Category</h1>
+
+    <!-- <div class="alert alert-success" role="alert">
+        A simple success alert—check it out!
+    </div> -->
+
+    <div class="card card-body">
+        <table class="table table-striped table-bordered" width="100%">
+            <thead>
+                <tr>
+                    <td width="1%">#</td>
+                    <td>Name</td>
+                    <td width="10%">Action</td>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(let i = 0; i < category.length; i++){ %>
+                    <tr>
+                      <td><%= i + 1 %></td>
+                      <td><%= category[i].name %></td>
+                      <td>
+                          <a href="#" type="button" class="btn btn-warning btn-circle btn-sm button-update"
+                            data-id="<%= category[i].id %>" data-name="<%= category[i].name %>"><i class="fas fa-edit"></i></a>
+                          <button type="submit" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button>
+                      </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<%- include('../../includes/footer.ejs') %>

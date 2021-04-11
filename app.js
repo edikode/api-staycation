@@ -4,6 +4,8 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
+const session = require("express-session");
+const flash = require("connect-flash");
 // import new
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/db_staycation", {
@@ -16,6 +18,7 @@ mongoose.connect("mongodb://localhost:27017/db_staycation", {
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 // router
+const backendRouter = require("./routes/backend");
 const apiRouter = require("./routes/api");
 
 var app = express();
@@ -23,6 +26,16 @@ var app = express();
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true },
+  })
+);
+app.use(flash());
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -38,6 +51,7 @@ app.use(
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 // declare url
+app.use("/admin", backendRouter);
 app.use("/api/v1", apiRouter);
 
 // catch 404 and forward to error handler
